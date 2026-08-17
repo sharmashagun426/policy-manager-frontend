@@ -1,18 +1,22 @@
 "use client";
 
-import { Box, Stack, Typography, Divider } from "@mui/material";
+import { Box, Stack, Typography, Divider, Dialog, DialogContent, Fab, Tooltip } from "@mui/material";
+import { useState } from "react";
 import DescriptionRoundedIcon from "@mui/icons-material/DescriptionRounded";
 import CheckCircleRoundedIcon from "@mui/icons-material/CheckCircleRounded";
 import AutorenewRoundedIcon from "@mui/icons-material/AutorenewRounded";
 import ErrorOutlineRoundedIcon from "@mui/icons-material/ErrorOutlineRounded";
+import AutoFixHighRoundedIcon from "@mui/icons-material/AutoFixHighRounded";
 import { tokens } from "@/lib/theme";
 import { useAuth } from "@/lib/AuthContext";
 import { useDocuments } from "@/features/documents/hooks/useDocuments";
 import StatCard from "@/components/admin/StatCard";
 import UploadDropzone from "@/components/admin/UploadDropzone";
 import DocumentsTable from "@/components/admin/DocumentsTable";
+import PolicyUpdateAssistant from "@/components/admin/PolicyUpdateAssistant";
 
 export default function DashboardPage() {
+  const [policyAssistantOpen, setPolicyAssistantOpen] = useState(false);
   const { orgName } = useAuth();
   const { documents, loading, uploadFiles, deleteDoc, retryDoc } = useDocuments();
 
@@ -84,6 +88,29 @@ export default function DashboardPage() {
           />
         )}
       </Box>
+
+      <Tooltip title="Open HR policy assistant" placement="left">
+        <Fab
+          color="primary"
+          aria-label="Open HR policy assistant"
+          onClick={() => setPolicyAssistantOpen(true)}
+          sx={{ position: "fixed", right: { xs: 20, sm: 32 }, bottom: { xs: 20, sm: 32 } }}
+        >
+          <AutoFixHighRoundedIcon />
+        </Fab>
+      </Tooltip>
+
+      <Dialog
+        open={policyAssistantOpen}
+        onClose={() => setPolicyAssistantOpen(false)}
+        fullWidth
+        maxWidth="md"
+        aria-label="HR policy assistant"
+      >
+        <DialogContent sx={{ p: 0 }}>
+          <PolicyUpdateAssistant onClose={() => setPolicyAssistantOpen(false)} />
+        </DialogContent>
+      </Dialog>
     </Box>
   );
 }

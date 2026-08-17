@@ -2,6 +2,8 @@ export const apiRoutes = {
   chat: "/api/chat",
   uploadDocument: "/api/upload-document",
   documents: "/api/documents",
+  updateSearch: "/api/update/search",
+  updateExecute: "/api/update/execute",
 } as const;
 
 export const backendBaseUrl =
