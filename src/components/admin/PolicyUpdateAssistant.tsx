@@ -90,7 +90,16 @@ export default function PolicyUpdateAssistant({ onClose }: { onClose?: () => voi
   };
 
   return (
-    <Paper variant="outlined" sx={{ overflow: "hidden", borderColor: tokens.borderStrong }}>
+    <Paper
+      square={Boolean(onClose)}
+      elevation={0}
+      variant={onClose ? undefined : "outlined"}
+      sx={{
+        overflow: "hidden",
+        borderColor: tokens.borderStrong,
+        minHeight: onClose ? "100dvh" : undefined,
+      }}
+    >
       <Stack direction="row" spacing={1.5} alignItems="center" sx={{ px: 2.5, py: 2, bgcolor: tokens.ink }}>
         <Box sx={{ width: 36, height: 36, borderRadius: 2, bgcolor: "rgba(255,255,255,.1)", display: "grid", placeItems: "center" }}>
           <AutoFixHighRoundedIcon sx={{ color: "#fff", fontSize: 20 }} />

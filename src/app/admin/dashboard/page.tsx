@@ -1,6 +1,6 @@
 "use client";
 
-import { Box, Stack, Typography, Divider, Dialog, DialogContent, Fab, Tooltip } from "@mui/material";
+import { Box, Stack, Typography, Divider, Drawer, Fab, Tooltip } from "@mui/material";
 import { useState } from "react";
 import DescriptionRoundedIcon from "@mui/icons-material/DescriptionRounded";
 import CheckCircleRoundedIcon from "@mui/icons-material/CheckCircleRounded";
@@ -100,17 +100,23 @@ export default function DashboardPage() {
         </Fab>
       </Tooltip>
 
-      <Dialog
+      <Drawer
+        anchor="right"
         open={policyAssistantOpen}
         onClose={() => setPolicyAssistantOpen(false)}
-        fullWidth
-        maxWidth="md"
-        aria-label="HR policy assistant"
+        slotProps={{
+          paper: {
+            sx: {
+              width: { xs: "100%", sm: 560, md: 640 },
+              bgcolor: tokens.bg,
+            },
+          },
+        }}
       >
-        <DialogContent sx={{ p: 0 }}>
+        <Box role="dialog" aria-label="HR policy update sidebar" sx={{ minHeight: "100%" }}>
           <PolicyUpdateAssistant onClose={() => setPolicyAssistantOpen(false)} />
-        </DialogContent>
-      </Dialog>
+        </Box>
+      </Drawer>
     </Box>
   );
 }
